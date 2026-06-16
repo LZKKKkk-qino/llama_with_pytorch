@@ -13,6 +13,7 @@ build/
 venv/
 ENV/
 env/
+.env/
 
 # IDE
 .idea/
@@ -51,3 +52,4 @@ htmlcov/
 # Claude
 CLAUDE.md
 .claude/
+
