@@ -47,3 +47,7 @@ htmlcov/
 # Environment variables
 .env
 .env.local
+
+# Claude
+CLAUDE.md
+.claude/
