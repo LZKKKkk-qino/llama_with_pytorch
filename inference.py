@@ -163,7 +163,7 @@ class LLama:
         # 这就是为什么一开始 sort 要接收两个东西的原因, probs_sort 是根据顺序排序的概率值,
 
         # 从 sorted 后的序列被取出的 index 来找到该 token 对应在词典中原来的 token id
-        next_token = torch.gather(probs_idx, -1, next_token)
+        next_token = torch.gather(input=probs_idx, dim=-1, index=next_token)
 
         return next_token
 
