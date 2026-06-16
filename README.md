@@ -36,14 +36,14 @@ llama_with_pytorch/
 
 ### 环境要求
 
-- Python >= 3.8
+- Python >= 3.10
 - PyTorch >= 2.0.0
 
 ### 安装
 
 1. 克隆仓库：
 ```bash
-git clone https://github.com/yourusername/llama_with_pytorch.git
+git clone https://github.com/LZKKKkk-qino/llama_with_pytorch.git
 cd llama_with_pytorch
 ```
 
