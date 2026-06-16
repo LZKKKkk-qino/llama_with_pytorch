@@ -61,21 +61,100 @@ pip install -r requirements.txt
 
 ## 💡 使用示例
 
+### 运行方式
+
+项目提供三种运行方式，适用于不同场景：
+
+#### 方式一：命令行运行（推荐）
+
+使用 `main.py` 通过命令行参数运行：
+
+```bash
+python main.py --checkpoint_dir /path/to/llama-model --prompt "请介绍一下人工智能"
+```
+
+**可选参数：**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--checkpoint_dir` | 必需 | 模型 checkpoint 目录路径 |
+| `--tokenizer_path` | 自动查找 | tokenizer.model 文件路径 |
+| `--max_seq_len` | 1024 | 最大序列长度 |
+| `--max_batch_size` | 4 | 最大批处理大小 |
+| `--max_gen_len` | 100 | 最大生成长度 |
+| `--temperature` | 0.9 | 采样温度（越高越随机） |
+| `--top_p` | 0.7 | Top-P 采样阈值 |
+| `--device` | 自动检测 | 运行设备（cuda/cpu） |
+| `--prompt` | "The meaning of life is" | 输入提示词 |
+
+#### 方式二：IDE 直接运行
+
+在 PyCharm/VSCode 等 IDE 中直接运行 `inference.py`：
+
+修改 `inference.py` 底部的配置后点击运行：
+
+```python
+if __name__ == "__main__":
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    checkpoint_dir = "你的模型路径"  # 修改这里
+
+    model = LLama.build(
+        checkpoint_dir=checkpoint_dir,
+        tokenizer_path=checkpoint_dir + "/tokenizer.model",
+        load_model=True,
+        max_seq_len=1024,
+        max_batch_size=2,
+        device=device
+    )
+
+    prompt = ['你好，请介绍一下自己']  # 修改提示词
+    output_tokens, output_texts = model.text_completion(
+        prompt, max_gen_len=64, temperature=0.9, top_p=0.7
+    )
+
+    for i in range(len(output_texts)):
+        print(f"{output_texts[i]}")
+```
+
+#### 方式三：自定义脚本导入使用
+
+创建新的 Python 文件（如 `run.py`）并导入使用：
+
 ```python
 from inference import LLama
+import torch
 
-# 加载模型（需要提供模型权重路径）
-model = LLama(
-    model_path="path/to/model/weights",
-    tokenizer_path="path/to/tokenizer.model",
-    max_seq_len=2048,
-    max_batch_size=4
+# 配置
+device = "cuda" if torch.cuda.is_available() else "cpu"
+checkpoint_dir = "你的模型路径"
+
+# 加载模型
+model = LLama.build(
+    checkpoint_dir=checkpoint_dir,
+    tokenizer_path=checkpoint_dir + "/tokenizer.model",
+    load_model=True,
+    max_seq_len=1024,
+    max_batch_size=2,
+    device=device
 )
 
-# 生成文本
-tokens = [1, 2, 3, 4]  # 输入 token 序列
-output = model.generate(tokens, max_new_tokens=100)
+# 运行推理
+prompt = ['解释什么是机器学习']
+output_tokens, output_texts = model.text_completion(
+    prompt, max_gen_len=100, temperature=0.7, top_p=0.9
+)
+
+print(output_texts[0])
 ```
+
+### 推荐场景
+
+| 场景 | 推荐方式 |
+|------|----------|
+| 快速测试 | 方式一（命令行） |
+| 学习调试 | 方式二或方式三（IDE） |
+| 批量处理 | 方式三（自定义脚本） |
+| 生产部署 | 方式三（封装成服务） |
 
 ## 🔧 核心组件说明
 
