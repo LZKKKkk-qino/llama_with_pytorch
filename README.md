@@ -2,6 +2,11 @@
 
 一个基于 PyTorch 的 LLaMA (Large Language Model Meta AI) 模型实现，用于学习大语言模型的架构和原理。
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-orange.svg)](https://pytorch.org/)
+[![GitHub](https://img.shields.io/badge/GitHub-Llama_with_PyTorch-green.svg)](https://github.com/LZKKKkk-qino/llama_with_pytorch)
+
 ## 📚 项目简介
 
 本项目实现了论文 [《LLaMA: Open and Efficient Foundation Language Models》](https://arxiv.org/abs/2302.13971) 中描述的核心组件，包括：
